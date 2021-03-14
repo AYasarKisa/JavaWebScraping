@@ -11,6 +11,7 @@ public class Api {
     @GetMapping("/test")
     public List<Broadcast> get(){
         Test test=new Test();
+        System.out.println("Ratatat");
         return test.deneme();
     }
 }
