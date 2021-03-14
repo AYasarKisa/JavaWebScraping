@@ -10,6 +10,7 @@ public class Api {
 
     @GetMapping("/test")
     public List<Broadcast> get(){
+        //selam
         Test test=new Test();
         return test.deneme();
     }
