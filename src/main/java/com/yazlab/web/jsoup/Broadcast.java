@@ -9,6 +9,7 @@ public class Broadcast {
 
     public String getTime() {
         return time;
+        System.out.print("selam");
     }
 
     public void setTime(String time) {
