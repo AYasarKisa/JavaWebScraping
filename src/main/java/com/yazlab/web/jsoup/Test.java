@@ -22,7 +22,7 @@ public class Test {
 
             for (Element element : broadcasts) {
                 Broadcast broadcast = new Broadcast();
-                broadcast.setTime(element.text());
+                //broadcast.setTime(element.text());
                 broadcastList.add(broadcast);
             }
 
