@@ -7,6 +7,8 @@ public class Broadcast {
 
     public String getCumle() {
         return cumle;
+
+    
     }
 
     public void setCumle(String cumle) {
