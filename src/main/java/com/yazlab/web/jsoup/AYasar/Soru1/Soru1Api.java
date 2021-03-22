@@ -14,7 +14,6 @@ public class Soru1Api {
     @GetMapping("/frekansbul")
     public List<KelimeFrekans> get(@RequestParam("url") String url){
         Soru1 soru=new Soru1();
-        soru.freakansBul(url);
         return soru.freakansBul(url);
     }
 }

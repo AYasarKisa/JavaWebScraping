@@ -27,21 +27,11 @@ public class Soru1 {
         try {
             Document document = Jsoup.connect(url).get();
             Elements broadcasts = document.select("body");
-
-            for (Element element : broadcasts) {
-                Broadcast broadcast = new Broadcast();
-                broadcast.setCumle(element.text());
-                broadcastList.add(broadcast);
-            }
-
-            for (Broadcast broadcast : broadcastList) {
-                kelimelereBol(broadcast.getCumle());
-            }
+            kelimelereBol(broadcasts.text());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return kelimeList;
-
     }
 
     /*
