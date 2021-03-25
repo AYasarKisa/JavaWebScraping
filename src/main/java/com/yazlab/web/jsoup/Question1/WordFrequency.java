@@ -1,10 +1,10 @@
-package com.yazlab.web.jsoup.AYasar.Soru1;
+package com.yazlab.web.jsoup.Question1;
 
-public class KelimeFrekans {
+public class WordFrequency {
     private String kelime;
     private int freakans;
 
-    public KelimeFrekans(String kelime){
+    public WordFrequency(String kelime){
         this.kelime=kelime;
         this.freakans=0;
     }

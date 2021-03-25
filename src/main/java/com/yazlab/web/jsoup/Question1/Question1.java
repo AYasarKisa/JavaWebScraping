@@ -1,17 +1,16 @@
-package com.yazlab.web.jsoup.AYasar.Soru1;
+package com.yazlab.web.jsoup.Question1;
 
 import com.yazlab.web.jsoup.Broadcast;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Soru1 {
+public class Question1 {
 
-    private List<KelimeFrekans> kelimeList = new ArrayList<>();
+    private List<WordFrequency> kelimeList = new ArrayList<>();
 
     /*
      * freakansBul calistiginda:
@@ -22,7 +21,7 @@ public class Soru1 {
      * kelimelereBol fonksiyonuna gonderir
      * Hepsi bitince de kelimeList i apiye doner
      */
-    public List<KelimeFrekans> freakansBul(String url) {
+    public List<WordFrequency> freakansBul(String url) {
         List<Broadcast> broadcastList = new ArrayList<>();
         try {
             Document document = Jsoup.connect(url).get();
@@ -57,7 +56,7 @@ public class Soru1 {
                 }
             }
             if (!kontrol) {
-                kelimeList.add(new KelimeFrekans(kelime));
+                kelimeList.add(new WordFrequency(kelime));
             }
         }
     }

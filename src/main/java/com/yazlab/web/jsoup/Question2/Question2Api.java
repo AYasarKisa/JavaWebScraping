@@ -1,4 +1,4 @@
-package com.yazlab.web.jsoup.Ibrahim.Question2;
+package com.yazlab.web.jsoup.Question2;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +10,8 @@ public class Question2Api {
 
     @GetMapping("/keywords")
     public List<Keywords> get(@RequestParam("url") String url){
+        System.out.println("Question2 Api Run\n\n\n");
+
         Question2 question2 = new Question2();
         return question2.extractKeywords(url);
     }
