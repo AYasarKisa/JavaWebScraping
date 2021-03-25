@@ -1,39 +1,34 @@
 package com.yazlab.web.jsoup.Question3;
 
 
-import com.yazlab.web.jsoup.Broadcast;
-import com.yazlab.web.jsoup.Ibrahim.Question2.Keywords;
-import com.yazlab.web.jsoup.Ibrahim.Question2.Question2;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.lang.reflect.Array;
+import com.yazlab.web.jsoup.Question1.WordFrequency;
+import com.yazlab.web.jsoup.Question1.Question1;
+import com.yazlab.web.jsoup.Question2.Keywords;
+import com.yazlab.web.jsoup.Question2.Question2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Question3 {
 
+    private List<WordFrequency> urlFrequencyExport;
+
+    public List<WordFrequency> getUrlFrequencyExport() {
+        return urlFrequencyExport;
+    }
+
+
     private List<Similarity> similarUrl = new ArrayList<>();
+
     public List<Similarity> similarity(String url1, String url2){
 
-        List<Broadcast> broadcastList = new ArrayList<>();
         try {
-            Document document = Jsoup.connect(url2).get();
-            Elements broadcasts = document.select("body");
 
-            String textUrl2 = broadcasts.text();
-            Question2 question2 = new Question2();
-            List<Keywords> keywords = new ArrayList<>();
-            keywords = question2.extractKeywords(url1);
+            double resultSimilarity=0.0;
+            resultSimilarity = calculateSimilarity(url1, url2);
 
-            int i=0 ;
-            while (i<5) {
-                System.out.println(dist(textUrl2, keywords.get(i).getWord()));
-                i++;
-            }
-
+            print(url1, resultSimilarity);
+            print(url2, resultSimilarity);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,36 +37,101 @@ public class Question3 {
         return  similarUrl;
     }
 
-    public double dist( String x, String y ) {
+    public void print(String url, double resultSimilarity){
 
-        int[][] dp = new int[x.length() + 1][y.length() + 1];
+        String []urlKeywords = new String[7];
+        int []urlKeywordsFrequency = new int[7];
 
-        for (int i = 0; i <= x.length(); i++) {
-            for (int j = 0; j <= y.length(); j++) {
-                if (i == 0) {
-                    dp[i][j] = j;
-                }
-                else if (j == 0) {
-                    dp[i][j] = i;
-                }
-                else {
-                    dp[i][j] = min(dp[i - 1][j - 1]
-                                    + costOfSubstitution(x.charAt(i - 1), y.charAt(j - 1)),
-                            dp[i - 1][j] + 1,
-                            dp[i][j - 1] + 1);
+        Question1 Question1 = new Question1();
+        List<WordFrequency> urlFrequency = Question1.freakansBul(url);
+        this.urlFrequencyExport=urlFrequency;
+
+        Question2 question2 = new Question2();
+        List<Keywords> keywords = new ArrayList<>();
+        keywords = question2.extractKeywords(url);
+
+
+        //url keywords
+        int counter = 0;
+        for(int j=0; j<7; j++){
+            if(!Arrays.asList(urlKeywords).contains(keywords.get(counter).getWord())){
+                urlKeywords[j] = keywords.get(counter).getWord();
+                counter++;
+            }
+            else{
+                j--;
+                counter++;
+            }
+        }
+
+        //Find keywords frequency
+        counter=0;
+        for(int j=0; j<7; j++){
+            for(WordFrequency s: urlFrequency){
+                if(urlKeywords[j].equals(s.getKelime())){
+                    urlKeywordsFrequency[j] = s.getFreakans();
                 }
             }
         }
 
-        return dp[x.length()][y.length()]/x.length();
+
+        similarUrl.add(new Similarity(urlKeywords, urlKeywordsFrequency, resultSimilarity, url));
+
     }
 
-    public static int costOfSubstitution(char a, char b) {
-        return a == b ? 0 : 1;
+    //1. url de 1. url in anahtar kelimelerinin toplam geçme sayısını al, 2. url de 1. url anahtar kelimelerinin toplam geçme sayısını bul. yüzdelik olarak dönder
+    public double calculateSimilarity(String url1, String url2){
+
+        String []urlKeywords = new String[7];
+        int []urlKeywordsFrequency = new int[7];
+        Question1 Question1 = new Question1();
+        List<WordFrequency> urlFrequency = Question1.freakansBul(url1);
+        Question2 question2 = new Question2();
+        List<Keywords> keywords = new ArrayList<>();
+        keywords = question2.extractKeywords(url1);
+
+        //url1 keywords
+        int counter = 0;
+        for(int j=0; j<7; j++){
+            if(!Arrays.asList(urlKeywords).contains(keywords.get(counter).getWord())){
+                urlKeywords[j] = keywords.get(counter).getWord();
+                counter++;
+            }
+            else{
+                j--;
+                counter++;
+            }
+        }
+
+        //Find keywords frequency at url1
+        counter=0;
+        double url1TotalFrequency=0.0;
+        for(int j=0; j<7; j++){
+            for(WordFrequency s: urlFrequency){
+                if(urlKeywords[j].equals(s.getKelime())){
+                    url1TotalFrequency += s.getFreakans();
+                }
+            }
+        }
+
+        //url1 anahtar kelimeleri url2 de kaç defa geçiyor
+        Question1 Question1_1 = new Question1();
+        List<WordFrequency> urlFrequency2 = Question1_1.freakansBul(url2);
+        double url2TotalFrequency=0.0;
+        for(int j=0; j<7; j++){
+            for(WordFrequency s: urlFrequency2){
+                if(urlKeywords[j].equals(s.getKelime())){
+                    url2TotalFrequency += s.getFreakans();
+                }
+            }
+        }
+
+        double result = (url2TotalFrequency/url1TotalFrequency)*100;
+        if(result>100){
+            result = 100.0;
+        }
+
+        return result;
     }
 
-    public static int min(int... numbers) {
-        return Arrays.stream(numbers)
-                .min().orElse(Integer.MAX_VALUE);
-    }
 }

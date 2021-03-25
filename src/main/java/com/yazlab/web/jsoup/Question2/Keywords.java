@@ -1,13 +1,11 @@
-package com.yazlab.web.jsoup.Ibrahim.Question2;
+package com.yazlab.web.jsoup.Question2;
 
 public class Keywords {
 
     private String word;
-    private String frequency;
     private double keywords;
-    public Keywords(String word, String frequency, double keywords){
+    public Keywords(String word,  double keywords){
         this.word = word;
-        this.frequency = frequency;
         this.keywords = keywords;
     }
 
@@ -17,14 +15,6 @@ public class Keywords {
 
     public void setWord(String word) {
         this.word = word;
-    }
-
-    public String getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(String frequency) {
-        this.frequency = frequency;
     }
 
     public double getKeywords() {
