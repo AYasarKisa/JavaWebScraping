@@ -1,7 +1,7 @@
 package com.yazlab.web.jsoup.Question4;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yazlab.web.jsoup.Question1.WordFrequency;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,21 @@ import java.util.List;
 public class UrlTree {
     private String url;
     private int level;
+    @JsonIgnore
     private double individualScore;
     private double totalScore;
+    @JsonIgnore
     private List<WordFrequency> allWordFrequency = new ArrayList<>();
     private List<KeywordFrequency> keywordFrequency=new ArrayList<>();
+    @JsonIgnore
     private UrlTree upperUrl = null;
     private List<UrlTree> subUrl = new ArrayList<>();
 
+
+
+    public void addKeywordFrequency(KeywordFrequency keywordFrequency){
+        this.keywordFrequency.add(keywordFrequency);
+    }
     public List<KeywordFrequency> getKeywordFrequency() {
         return keywordFrequency;
     }
@@ -42,6 +50,7 @@ public class UrlTree {
         this.subUrl.add(url);
         return true;
     }
+
 
     public int getLevel() {
         return level;

@@ -20,21 +20,16 @@ public class Question4 {
 
 
     public List<UrlTree> indexlemeYap(String mainUrls, List<String> urlSet) {
-
         this.mainUrls = mainUrls;
-
-
         for (int i = 0; i < urlSet.size(); i++) {
             UrlTree url = new UrlTree(urlSet.get(i), 1);
             this.urls.add(url);
         }
 
-
         try {
 
             getAllUrl();
             kontrolEt();
-            System.out.println("Site cekme bitti");
             calculateScore();
             keywordFrequency();
 
@@ -101,6 +96,7 @@ public class Question4 {
 
         }
     }
+
     public Boolean canAddSubUrl(UrlTree url) {
         if (url.getUrl().contains("facebook") || url.getUrl().contains("linkedin") || url.getUrl().contains("twitter") || url.getUrl().contains("youtube")) {
             return false;
@@ -181,7 +177,7 @@ public class Question4 {
                 for (int k = 0; k < urls.get(i).getSubUrl().get(j).getSubUrl().size(); k++) {
                     urls.get(i).getSubUrl().get(j).getSubUrl().get(k).setIndividualScore(question3.similarity(mainUrls, urls.get(i).getSubUrl().get(j).getSubUrl().get(k).getUrl()).get(0).getSimilarity());
                     urls.get(i).getSubUrl().get(j).getSubUrl().get(k).setAllWordFrequency(question3.getUrlFrequencyExport());
-                    System.out.println("Site  :" + (i + 1) + "---" + (j + 1) + "---" + (k + 1) + "---");
+                    System.out.println("Site  :" + (i) + "---" + (j) + "---" + (k) + "---");
                 }
             }
         }
@@ -232,7 +228,6 @@ public class Question4 {
         List<Keywords> keywords;
 
         keywords = question2.extractKeywords(mainUrls);
-
         for (int i = 0; i < urls.size(); i++) {
             compareKeyword(keywords, urls.get(i));
             for (int j = 0; j < urls.get(i).getSubUrl().size(); j++) {
@@ -248,15 +243,19 @@ public class Question4 {
 
     public void compareKeyword(List<Keywords> keywords, UrlTree url) {
         for (int i = 0; i < keywords.size(); i++) {
+
             if (i == 7) {
                 break;
             }
             KeywordFrequency keywordsFrequeny = new KeywordFrequency();
             keywordsFrequeny.setKeyword(keywords.get(i).getWord());
             keywordsFrequeny.setFrequency(0);
+            url.addKeywordFrequency(keywordsFrequeny);
         }
 
+
         for (int i = 0; i < url.getKeywordFrequency().size(); i++) {
+
             for (int j = 0; j < url.getAllWordFrequency().size(); j++) {
                 if (url.getKeywordFrequency().get(i).getKeyword().equals(url.getAllWordFrequency().get(j).getKelime())) {
                     url.getKeywordFrequency().get(i).setFrequency(url.getAllWordFrequency().get(j).getFreakans());
