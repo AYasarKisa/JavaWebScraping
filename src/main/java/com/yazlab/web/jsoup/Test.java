@@ -1,42 +1,44 @@
 package com.yazlab.web.jsoup;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Test {
 
-    public Test() {
+        public void testEt() throws IOException, JSONException {
+            File f = new File("src/main/java/com/yazlab/web/jsoup/kelime.txt");
+            Scanner dosya = new Scanner(f);
+            HashMap<String,String> esAnlam=new HashMap<>();
+            SimpleDateFormat formatter2= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+            Date date2 = new Date(System.currentTimeMillis());
 
-    }
 
-    public List<Broadcast> deneme() {
-        List<Broadcast> broadcastList = new ArrayList<>();
-        try {
-            Document document = Jsoup.connect("https://ozguryazilim.com.tr/biz/kariyer/").get();
-            Elements broadcasts = document.select("p");
+            String[] kelime;
+            while(dosya.hasNextLine()) {
+                kelime=dosya.nextLine().split("\\s+");
+                if(kelime.length!=2 ){
+                    continue;
+                }
+                else{
+                    System.out.println(kelime[0]+" "+kelime[1]);
+                    if(esAnlam.get(kelime[0])==null){
+                        esAnlam.put(kelime[0].trim().toLowerCase(),kelime[1].trim().toLowerCase());
+                    }
 
-            for (Element element : broadcasts) {
-                Broadcast broadcast = new Broadcast();
-                //broadcast.setTime(element.text());
-                broadcastList.add(broadcast);
+
+                }
             }
 
-            for (Broadcast broadcast : broadcastList) {
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+            Date date = new Date(System.currentTimeMillis());
+            System.out.println(formatter2.format(date2));
+            System.out.println(formatter.format(date));
 
 
-                //System.out.println(broadcast.getTime());
-
-
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return broadcastList;
     }
-}
+

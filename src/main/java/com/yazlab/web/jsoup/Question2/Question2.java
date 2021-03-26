@@ -96,6 +96,9 @@ public class Question2 {
         for (Map.Entry list : keywordList.entrySet()) {
             TF = (int) list.getValue() / (float) sentenceLength;
             IDF = (double) Math.log10(numberOfSentences / (int) reWord);
+            if(Double.isInfinite(IDF)){
+                IDF=0;
+            }
             keywords.add(new Keywords(list.getKey().toString(), (TF * IDF)));
         }
     }
