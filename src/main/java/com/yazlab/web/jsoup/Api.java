@@ -17,9 +17,7 @@ public class Api {
     @GetMapping("/test")
     public String  get(@RequestParam String url) throws IOException {
 
-        Test test=new Test();
-        test.testEt();
-        return "Ratata";
+        return null;
     }
 
 

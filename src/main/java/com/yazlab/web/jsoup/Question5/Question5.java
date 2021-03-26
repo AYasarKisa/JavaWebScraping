@@ -5,23 +5,19 @@ import com.yazlab.web.jsoup.Question2.Question2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Question5 {
 
-    private HashMap<String, String> synonymsList = new HashMap<>();
+    private HashMap<String, ArrayList<String>> synonymsList = new HashMap<>();
     private List<Keywords> keywords = new ArrayList<>();
     private List<Synonyms> synonyms = new ArrayList<>();
     private String []words = new String[7];
-    private String []sWords = new String[7];
+    private HashMap<String,ArrayList<String>> sWords = new HashMap<>();
 
     public List<Synonyms> synonymsWords(String mainUrl, List<String> urlList){
 
         readFiles();
-
         findKeywords(mainUrl);
         findSynonyms();
 
@@ -49,8 +45,9 @@ public class Question5 {
             }
             else{
                 if(synonymsList.get(vocabulary[0])==null){
-                    synonymsList.put(vocabulary[0].trim().toLowerCase(),vocabulary[1].trim().toLowerCase());
+                    synonymsList.put(vocabulary[0].trim().toLowerCase(),new ArrayList<String>());
                 }
+                synonymsList.get(vocabulary[0]).add(vocabulary[1]);
             }
         }
     }
@@ -63,12 +60,20 @@ public class Question5 {
 
         for(int i=0;i<words.length;i++){
             if(synonymsList.get(words[i]) != null){
-                sWords[i] = synonymsList.get(words[i]);
+                sWords.put(words[i],synonymsList.get(words[i]));
             }
             else{
-                sWords[i] = words[i];
+                sWords.put(words[i],new ArrayList<>());
+                sWords.get(words[i]).add(words[i]);
             }
-            System.out.println(words[i] + " " + sWords[i]);
+        }
+
+        for(Map.Entry<String, ArrayList<String>> entry : sWords.entrySet()) {
+            String key = entry.getKey();
+            ArrayList value = entry.getValue();
+            for(int i=0; i<value.size(); i++){
+                System.out.println("key:"+key+" value:"+value.get(i));
+            }
         }
     }
 }
