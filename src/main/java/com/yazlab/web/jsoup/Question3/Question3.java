@@ -13,11 +13,16 @@ public class Question3 {
 
     private List<WordFrequency> urlFrequencyExport;
 
+
     public List<WordFrequency> getUrlFrequencyExport() {
         return urlFrequencyExport;
     }
 
     private List<Similarity> similarUrl = new ArrayList<>();
+
+    public List<Similarity> getSimilarUrl() {
+        return similarUrl;
+    }
 
     public List<Similarity> similarity(String url1, String url2){
 
