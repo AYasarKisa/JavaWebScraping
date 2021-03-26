@@ -18,7 +18,6 @@ public class Question3 {
         return urlFrequencyExport;
     }
 
-
     private List<Similarity> similarUrl = new ArrayList<>();
 
     public List<Similarity> getSimilarUrl() {
