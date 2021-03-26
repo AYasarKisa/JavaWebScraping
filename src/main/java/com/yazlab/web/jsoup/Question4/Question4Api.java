@@ -8,7 +8,6 @@ import java.util.List;
 @RequestMapping("/api1/soru4")
 public class Question4Api {
 
-
     @GetMapping("/indexandsort")
     public List<UrlTree> get(@RequestParam String mainUrl, @RequestParam List<String> urlSet){
         System.out.println("Question4 Api Run\n\n\n");

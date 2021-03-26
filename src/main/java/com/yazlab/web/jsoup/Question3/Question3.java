@@ -17,7 +17,6 @@ public class Question3 {
         return urlFrequencyExport;
     }
 
-
     private List<Similarity> similarUrl = new ArrayList<>();
 
     public List<Similarity> similarity(String url1, String url2){
