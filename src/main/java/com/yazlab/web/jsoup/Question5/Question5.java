@@ -2,6 +2,8 @@ package com.yazlab.web.jsoup.Question5;
 
 import com.yazlab.web.jsoup.Question2.Keywords;
 import com.yazlab.web.jsoup.Question2.Question2;
+import com.yazlab.web.jsoup.Question4.Question4;
+import com.yazlab.web.jsoup.Question4.UrlTree;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,21 +14,29 @@ public class Question5 {
     private HashMap<String, ArrayList<String>> synonymsList = new HashMap<>();
     private List<Keywords> keywords = new ArrayList<>();
     private List<Synonyms> synonyms = new ArrayList<>();
-    private String []words = new String[7];
-    private HashMap<String,ArrayList<String>> sWords = new HashMap<>();
+    private ArrayList<Object> classes = new ArrayList<>();
+    private HashMap<String,ArrayList<String>> sWords;
 
-    public List<Synonyms> synonymsWords(String mainUrl, List<String> urlList){
+    public ArrayList<Object> synonymsWords(String mainUrl, List<String> urlList){
 
         readFiles();
         findKeywords(mainUrl);
-        findSynonyms();
+        for(int i=0;i<urlList.size();i++){
+            findKeywords(urlList.get(i));
+        }
 
-        return synonyms;
+        Question4 question4 = new Question4();
+        List<UrlTree> tree = question4.indexing(mainUrl,urlList);
+
+        classes.add(synonyms);
+        classes.add(tree);
+        return classes;
     }
 
-    public void findKeywords(String mainUrl){
+    public void findKeywords(String url){
         Question2 question2 = new Question2();
-        keywords = question2.extractKeywords(mainUrl);
+        keywords = question2.extractKeywords(url);
+        findSynonyms(url);
     }
 
     public void readFiles(){
@@ -52,7 +62,8 @@ public class Question5 {
         }
     }
 
-    public void findSynonyms(){
+    public void findSynonyms(String url){
+        sWords = new HashMap<>();
         String []words = new String[7];
         for(int i=0; i<7; i++){
             words[i] = keywords.get(i).getWord();
@@ -75,5 +86,7 @@ public class Question5 {
                 System.out.println("key:"+key+" value:"+value.get(i));
             }
         }
+
+        synonyms.add(new Synonyms(sWords,url));
     }
 }
