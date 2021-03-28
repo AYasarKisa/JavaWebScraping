@@ -28,8 +28,11 @@ public class Question5 {
         Question4 question4 = new Question4();
         List<UrlTree> tree = question4.indexing(mainUrl,urlList);
 
+        UrlTree mainUrlTree=new UrlTree(mainUrl,0);
+        mainUrlTree.setSubUrl(tree);
+
         classes.add(synonyms);
-        classes.add(tree);
+        classes.add(mainUrlTree);
         return classes;
     }
 
