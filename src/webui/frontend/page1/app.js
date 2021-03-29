@@ -48,12 +48,26 @@ const question3Result = async function(response){
     textArea.innerText = html
 }
 
+
 const question4Result = async function(response){
-    let textArea = document.querySelector('#text-area')
-    textArea.style.display = 'block'
+
     let html = ""
+    if(response.length == 0){
+       return 1
+    }
 
-
+    for(let i=0;i<response.length;i++){
+        html += "url: "+response[i].url+"\n"
+        html += "level: "+response[i].level+"\n"
+        html += "total score: "+response[i].totalScore+"\n"
+        html += "Anahtar Kelimeler ve Frekansları\n\n"
+        for(let j=0;j<7;j++){
+            html += j+"-  Anahtar Kelime: "+response[i].keywordFrequency[j].keyword+"   Frekans: "+response[i].keywordFrequency[j].frequency+"\n"
+        }
+        html +="\n\n\n"
+        question4Result(response[i].subUrl)
+    }
+   textArea.innerText=result
 }
 
 const question1 = async function(){
