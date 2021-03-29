@@ -35,6 +35,7 @@ public class Question4 {
             kontrolEt();
             calculateScore();
             keywordFrequency();
+            allUrlTreeSort();
 
 
         } catch (Exception e) {
@@ -125,7 +126,6 @@ public class Question4 {
                     }
 
 
-
                 }
 
 
@@ -137,19 +137,19 @@ public class Question4 {
 
     public Boolean canAddSubUrl(UrlTree url) {
 
-        try{
+        try {
             URL testUrl = new URL(url.getUrl());
-            HttpURLConnection connection = (HttpURLConnection)testUrl.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) testUrl.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
 
             int code = connection.getResponseCode();
             //System.out.println("Response Code: "+code);
-            if(code!=200){
-               // System.out.println("Calismayan Url ler: "+url.getUrl());
+            if (code != 200) {
+                // System.out.println("Calismayan Url ler: "+url.getUrl());
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
 
@@ -249,6 +249,7 @@ public class Question4 {
                         Question3 question3_3 = new Question3();
                         urls.get(i).getSubUrl().get(j).getSubUrl().get(k).setIndividualScore(question3_3.similarity(mainUrls, urls.get(i).getSubUrl().get(j).getSubUrl().get(k).getUrl()).get(1).getSimilarity());
                         urls.get(i).getSubUrl().get(j).getSubUrl().get(k).setAllWordFrequency(question3_3.getUrlFrequencyExport());
+                        urls.get(i).getSubUrl().get(j).getSubUrl().get(k).setTotalScore(urls.get(i).getSubUrl().get(j).getSubUrl().get(k).getIndividualScore());
                         question3_3.getSimilarUrl().get(0).setSimilarity(0);
                         question3_3.getSimilarUrl().get(1).setSimilarity(0);
                         System.out.println("Site  :" + (i) + "---" + (j) + "---" + (k) + "---");
@@ -284,8 +285,8 @@ public class Question4 {
 
                 try {
                     scoreLevel3 /= urls.get(i).getSubUrl().get(j).getSubUrl().size();
-                    if(Double.isInfinite(scoreLevel3)){
-                        scoreLevel3=0;
+                    if (Double.isInfinite(scoreLevel3)) {
+                        scoreLevel3 = 0;
                     }
                     urls.get(i).getSubUrl().get(j).setTotalScore(((urls.get(i).getSubUrl().get(j).getIndividualScore() * 70) / 100) + ((scoreLevel3 * 30) / 100));
                     scoreLevel2 += urls.get(i).getSubUrl().get(j).getTotalScore();
@@ -297,8 +298,8 @@ public class Question4 {
 
             try {
                 scoreLevel2 /= urls.get(i).getSubUrl().size();
-                if(Double.isInfinite(scoreLevel2)){
-                    scoreLevel2=0;
+                if (Double.isInfinite(scoreLevel2)) {
+                    scoreLevel2 = 0;
                 }
                 urls.get(i).setTotalScore(((urls.get(i).getIndividualScore() * 60) / 100) + ((scoreLevel2 * 40) / 100));
             } catch (Exception e) {
@@ -377,6 +378,33 @@ public class Question4 {
                 }
             }
         }
+    }
+
+    public void allUrlTreeSort() {
+        for (int i = 0; i < urls.size(); i++) {
+            sort(urls);
+        }
+
+        for (int i = 0; i < urls.size(); i++) {
+            sort(urls.get(i).getSubUrl());
+        }
+
+        for (int i = 0; i < urls.size(); i++) {
+            for (int j = 0; j < urls.get(i).getSubUrl().size(); j++) {
+                sort(urls.get(i).getSubUrl().get(j).getSubUrl());
+            }
+        }
+    }
+
+    public void sort(List<UrlTree> url) {
+        int n = url.size();
+        for (int i = 0; i < n - 1; i++)
+            for (int j = 0; j < n - i - 1; j++)
+                if (url.get(j).getTotalScore() < url.get(j + 1).getTotalScore()) {
+                    UrlTree temp = url.get(j);
+                    url.set(j, url.get(j + 1));
+                    url.set(j + 1, temp);
+                }
     }
 
 
