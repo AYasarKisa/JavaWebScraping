@@ -51,23 +51,43 @@ const question3Result = async function(response){
 
 const question4Result = async function(response){
 
+    let textArea = document.querySelector('#text-area')
+    textArea.style.display = 'block'
     let html = ""
-    if(response.length == 0){
-       return 1
-    }
 
-    for(let i=0;i<response.length;i++){
+
+    for (let i = 0; i < response.length; i++) {
         html += "url: "+response[i].url+"\n"
         html += "level: "+response[i].level+"\n"
         html += "total score: "+response[i].totalScore+"\n"
         html += "Anahtar Kelimeler ve Frekansları\n\n"
-        for(let j=0;j<7;j++){
-            html += j+"-  Anahtar Kelime: "+response[i].keywordFrequency[j].keyword+"   Frekans: "+response[i].keywordFrequency[j].frequency+"\n"
+        for(let l=0;l<7;l++){
+            html += l+"       -  Anahtar Kelime: "+response[i].keywordFrequency[l].keyword+"   Frekans: "+response[i].keywordFrequency[l].frequency+"\n"
         }
         html +="\n\n\n"
-        question4Result(response[i].subUrl)
+
+        for (let j = 0; j < response[i].subUrl.length; j++) {
+            html += "   url: "+response[i].subUrl[j].url+"\n"
+            html += "   level: "+response[i].subUrl[j].level+"\n"
+            html += "   total score: "+response[i].subUrl[j].totalScore+"\n"
+            html += "   Anahtar Kelimeler ve Frekansları\n\n"
+            for(let l=0;l<7;l++){
+                html += l+"       -  Anahtar Kelime: "+response[i].subUrl[j].keywordFrequency[l].keyword+"   Frekans: "+response[i].subUrl[j].keywordFrequency[l].frequency+"\n"
+            }
+            html +="\n\n\n"
+            for (let k = 0; k < response[i].subUrl[j].subUrl.length; k++) {
+                html += "       url: "+response[i].subUrl[j].subUrl[k].url+"\n"
+                html += "       level: "+response[i].subUrl[j].subUrl[k].level+"\n"
+                html += "       total score: "+response[i].subUrl[j].subUrl[k].totalScore+"\n"
+                html += "       Anahtar Kelimeler ve Frekansları\n\n"
+                for(let l=0;l<7;l++){
+                    html += l+"       -  Anahtar Kelime: "+response[i].subUrl[j].subUrl[k].keywordFrequency[l].keyword+"   Frekans: "+response[i].subUrl[j].subUrl[k].keywordFrequency[l].frequency+"\n"
+                }
+                html +="\n\n\n"
+            }
+        }
     }
-   textArea.innerText=result
+   textArea.innerText=html
 }
 
 const question1 = async function(){
