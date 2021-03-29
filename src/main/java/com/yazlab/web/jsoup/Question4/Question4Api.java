@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api1/soru4")
 public class Question4Api {

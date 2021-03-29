@@ -2,13 +2,11 @@ package com.yazlab.web.jsoup.Question3;
 
 import com.yazlab.web.jsoup.Question2.Keywords;
 import com.yazlab.web.jsoup.Question2.Question2;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api1/soru3")
 public class Question3Api {
