@@ -2,11 +2,11 @@ package com.yazlab.web.jsoup.Question3;
 
 public class Similarity {
     private double similarity;
-    private int []frequency;
-    private String []keywords;
+    private int[] frequency;
+    private String[] keywords;
     private String url;
 
-    public Similarity(String []keywords, int []frequency ,double similarity, String url) {
+    public Similarity(String[] keywords, int[] frequency, double similarity, String url) {
         this.similarity = similarity;
         this.frequency = frequency;
         this.keywords = keywords;

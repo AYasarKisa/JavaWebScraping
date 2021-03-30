@@ -14,16 +14,16 @@ public class UrlTree {
     private double totalScore;
     @JsonIgnore
     private List<WordFrequency> allWordFrequency = new ArrayList<>();
-    private List<KeywordFrequency> keywordFrequency=new ArrayList<>();
+    private List<KeywordFrequency> keywordFrequency = new ArrayList<>();
     @JsonIgnore
     private UrlTree upperUrl = null;
     private List<UrlTree> subUrl = new ArrayList<>();
 
 
-
-    public void addKeywordFrequency(KeywordFrequency keywordFrequency){
+    public void addKeywordFrequency(KeywordFrequency keywordFrequency) {
         this.keywordFrequency.add(keywordFrequency);
     }
+
     public List<KeywordFrequency> getKeywordFrequency() {
         return keywordFrequency;
     }

@@ -4,11 +4,15 @@ public class WordFrequency {
     private String kelime;
     private int freakans;
 
-    public WordFrequency(String kelime){
-        this.kelime=kelime;
-        this.freakans=0;
+    public WordFrequency(String kelime) {
+        this.kelime = kelime;
+        this.freakans = 0;
     }
-    public void freakansArtir(){ freakans++;}
+
+    public void freakansArtir() {
+        freakans++;
+    }
+
     public String getKelime() {
         return kelime;
     }
