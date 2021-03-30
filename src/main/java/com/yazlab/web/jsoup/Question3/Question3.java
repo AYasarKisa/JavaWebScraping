@@ -26,6 +26,7 @@ public class Question3 {
     }
 
     public List<Similarity> similarity(String url1, String url2) {
+        System.out.println("Question3 Function Run...");
 
         try {
 
@@ -38,6 +39,7 @@ public class Question3 {
         } catch (Exception e) {
         }
 
+        System.out.println("Question4 Function Finish...");
         return similarUrl;
     }
 

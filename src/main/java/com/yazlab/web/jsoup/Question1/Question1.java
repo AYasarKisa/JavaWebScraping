@@ -13,12 +13,14 @@ public class Question1 {
 
 
     public List<WordFrequency> freakansBul(String url) {
+        System.out.println("Question1 Function Run...");
         try {
             Document document = Jsoup.connect(url).get();
             Elements broadcasts = document.select("body");
             kelimelereBol(broadcasts.text());
         } catch (Exception e) {
         }
+        System.out.println("Question1 Function Finish...");
         return kelimeList;
     }
 

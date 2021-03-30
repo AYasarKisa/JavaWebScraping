@@ -20,6 +20,7 @@ public class Question2 {
     private HashMap<String, Integer> score = new HashMap<>();
 
     public List<Keywords> extractKeywords(String url) {
+        System.out.println("Question2 Function Run...");
 
         try {
 
@@ -51,7 +52,7 @@ public class Question2 {
 
         }
 
-
+        System.out.println("Question2 Function Finish...");
         return keywords;
     }
 

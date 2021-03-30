@@ -18,6 +18,7 @@ public class Question5 {
     private HashMap<String, ArrayList<String>> sWords;
 
     public ArrayList<Object> synonymsWords(String mainUrl, List<String> urlList) {
+        System.out.println("Question5 Function Run...");
 
         readFiles();
         findKeywords(mainUrl);
@@ -33,6 +34,7 @@ public class Question5 {
 
         classes.add(synonyms);
         classes.add(mainUrlTree);
+        System.out.println("Question5 Function Finish...");
         return classes;
     }
 
