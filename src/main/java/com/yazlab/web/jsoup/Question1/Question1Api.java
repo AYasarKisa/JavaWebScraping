@@ -1,8 +1,6 @@
 package com.yazlab.web.jsoup.Question1;
 
-
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @CrossOrigin(maxAge = 3600)

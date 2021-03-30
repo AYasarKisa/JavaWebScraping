@@ -6,7 +6,7 @@ public class WordFrequency {
 
     public WordFrequency(String kelime) {
         this.kelime = kelime;
-        this.freakans = 0;
+        this.freakans = 1;
     }
 
     public void freakansArtir() {
