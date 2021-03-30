@@ -18,6 +18,7 @@ public class Question5 {
     private HashMap<String, ArrayList<String>> sWords;
 
     public ArrayList<Object> synonymsWords(String mainUrl, List<String> urlList) {
+        System.out.println("Question5 Function Run...");
 
         readFiles();
         findKeywords(mainUrl);
@@ -33,6 +34,7 @@ public class Question5 {
 
         classes.add(synonyms);
         classes.add(mainUrlTree);
+        System.out.println("Question5 Function Finish...");
         return classes;
     }
 
@@ -48,7 +50,7 @@ public class Question5 {
         try {
             file = new Scanner(f);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
         }
         String[] vocabulary;
         while (file.hasNextLine()) {
@@ -77,14 +79,6 @@ public class Question5 {
             } else {
                 sWords.put(words[i], new ArrayList<>());
                 sWords.get(words[i]).add(words[i]);
-            }
-        }
-
-        for (Map.Entry<String, ArrayList<String>> entry : sWords.entrySet()) {
-            String key = entry.getKey();
-            ArrayList value = entry.getValue();
-            for (int i = 0; i < value.size(); i++) {
-                System.out.println("key:" + key + " value:" + value.get(i));
             }
         }
 
