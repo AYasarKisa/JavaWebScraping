@@ -1,11 +1,14 @@
 package com.yazlab.web.jsoup.Question2;
 
-import com.yazlab.web.jsoup.Broadcast;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,7 +20,7 @@ public class Question2 {
     private HashMap<String, Integer> score = new HashMap<>();
 
     public List<Keywords> extractKeywords(String url) {
-        List<Broadcast> broadcastList = new ArrayList<>();
+
         try {
 
             Document document = Jsoup.connect(url).get();
@@ -45,7 +48,7 @@ public class Question2 {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
 
 
@@ -55,11 +58,6 @@ public class Question2 {
     public void findRepetition(String sentence) {
         String[] words = sentence.split("\\s+");
         HashMap<String, Integer> keywordList = new HashMap<String, Integer>();
-
-        //without turkish char
-        /*for (int i = 0; i < words.length; i++) {
-            words[i] = words[i].replaceAll("[^\\w]", "");
-        } */
 
 
         int sentenceLength = words.length;
@@ -96,8 +94,8 @@ public class Question2 {
         for (Map.Entry list : keywordList.entrySet()) {
             TF = (int) list.getValue() / (float) sentenceLength;
             IDF = (double) Math.log10(numberOfSentences / (int) reWord);
-            if(Double.isInfinite(IDF)){
-                IDF=0;
+            if (Double.isInfinite(IDF)) {
+                IDF = 0;
             }
             keywords.add(new Keywords(list.getKey().toString(), (TF * IDF)));
         }
@@ -108,7 +106,6 @@ public class Question2 {
         for (int i = 0; i < n - 1; i++)
             for (int j = 0; j < n - i - 1; j++)
                 if (keywords.get(j).getKeywords() < keywords.get(j + 1).getKeywords()) {
-                    // swap arr[j+1] and arr[j]
                     Keywords temp = keywords.get(j);
                     keywords.set(j, keywords.get(j + 1));
                     keywords.set(j + 1, temp);
@@ -126,24 +123,17 @@ public class Question2 {
                             .attr("content");
 
             if (metaKeywords != null) {
-                //System.out.println(metaKeywords);
+
 
                 String[] metaArray;
                 metaArray = metaKeywords.split(",");
-                //meta keywords score = 7
+
                 for (int i = 0; i < metaArray.length; i++) {
                     metaArray[i] = metaArray[i].toLowerCase();
-                    if(!metaArray[i].equals(""))
+                    if (!metaArray[i].equals(""))
                         score.put(metaArray[i], 7);
                 }
 
-            /*
-            for (String name: score.keySet()) {
-                String key = name.toString();
-                String value = score.get(name).toString();
-                System.out.println(key + " " + value);
-            }
-            */
             }
         } catch (NullPointerException e) {
             return;
@@ -216,7 +206,7 @@ public class Question2 {
     public void setHKeywords(String[] hTagsArray, int point) {
         for (int i = 0; i < hTagsArray.length; i++) {
             hTagsArray[i] = hTagsArray[i].toLowerCase();
-            if(!hTagsArray[i].equals("")){
+            if (!hTagsArray[i].equals("")) {
                 for (String name : score.keySet()) {
                     String key = name.toString();
                     String value = score.get(name).toString();

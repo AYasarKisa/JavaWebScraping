@@ -23,6 +23,7 @@ public class Question4 {
 
 
     public List<UrlTree> indexing(String mainUrls, List<String> urlSet) {
+        System.out.println("Question4 Function Run...");
         this.mainUrls = mainUrls;
         for (int i = 0; i < urlSet.size(); i++) {
             UrlTree url = new UrlTree(urlSet.get(i), 1);
@@ -32,16 +33,15 @@ public class Question4 {
         try {
 
             getAllUrl();
-            kontrolEt();
+
             calculateScore();
             keywordFrequency();
             allUrlTreeSort();
 
 
         } catch (Exception e) {
-
-            e.printStackTrace();
         }
+        System.out.println("Question4 Function Finish...");
         return urls;
     }
 
@@ -57,8 +57,6 @@ public class Question4 {
                 links = document.select("a");
 
             } catch (Exception e) {
-                System.out.println("Hatali Url: " + urls.get(i).getUrl());
-                System.out.println(e + " Hatasi Meydana geldi");
             }
 
 
@@ -70,8 +68,6 @@ public class Question4 {
                     continue;
                 }
                 if (linkClass.getUrl().startsWith("/")) {
-                    //System.out.println("Eski Hali: "+linkClass.getUrl());
-                    //System.out.println("Yeni Hali: "+link.attr("abs:href")+linkClass.getUrl());
                     linkClass.setUrl(link.attr("abs:href") + linkClass.getUrl());
                 }
 
@@ -87,21 +83,11 @@ public class Question4 {
             }
 
             for (int j = 0; j < urls.get(i).getSubUrl().size(); j++) {
-               /* if (!urls.get(i).getSubUrl().get(j).getUrl().contains("www") || !urls.get(i).getSubUrl().get(j).getUrl().contains("https")) {
-                    continue;
-                }
-                if (urls.get(i).getSubUrl().get(j).getUrl().contains("facebook") || urls.get(i).getSubUrl().get(j).getUrl().contains("linkedin") || urls.get(i).getSubUrl().get(j).getUrl().contains("twitter") || urls.get(i).getSubUrl().get(j).getUrl().contains("youtube")) {
-                    continue;
-                }
-                */
-
 
                 try {
                     document = Jsoup.connect(urls.get(i).getSubUrl().get(j).getUrl()).get();
                     links = document.select("a");
                 } catch (Exception e) {
-                    System.out.println("Hatali Url: " + urls.get(i).getUrl());
-                    System.out.println(e + " Hatasi Meydana geldi");
                 }
                 for (int k = 0; k < links.size(); k++) {
 
@@ -111,8 +97,6 @@ public class Question4 {
                         continue;
                     }
                     if (linkClass.getUrl().startsWith("/")) {
-                        // System.out.println("Eski Hali: "+linkClass.getUrl());
-                        //System.out.println("Yeni Hali: "+link.attr("abs:href")+linkClass.getUrl());
                         linkClass.setUrl(link.attr("abs:href") + linkClass.getUrl());
                     }
 
@@ -144,23 +128,12 @@ public class Question4 {
             connection.connect();
 
             int code = connection.getResponseCode();
-            //System.out.println("Response Code: "+code);
             if (code != 200) {
-                // System.out.println("Calismayan Url ler: "+url.getUrl());
                 return false;
             }
         } catch (Exception e) {
             return false;
         }
-
-        /*
-        if (url.getUrl().contains("facebook") || url.getUrl().contains("linkedin") || url.getUrl().contains("twitter") || url.getUrl().contains("youtube")) {
-            return false;
-        }
-
-         */
-        // if (url.getUrl().contains("www.") || url.getUrl().contains("http://") || url.getUrl().contains("https://")) {
-
         if (url.getLevel() == 2) {
             if (url.getUpperUrl().getSubUrl().isEmpty()) {
                 return true;
@@ -186,35 +159,16 @@ public class Question4 {
                         }
                     }
                 }
-
             }
-
             return true;
-
         }
-
-        //}
-
         return false;
-
-
-    }
-
-    public void kontrolEt() {
-        for (int i = 0; i < urls.size(); i++) {
-            for (int j = 0; j < urls.get(i).getSubUrl().size(); j++) {
-                for (int k = 0; k < urls.get(i).getSubUrl().get(j).getSubUrl().size(); k++) {
-                    System.out.println(urls.get(i).getUrl() + "-----" + urls.get(i).getSubUrl().get(j).getUrl() + "----" + urls.get(i).getSubUrl().get(j).getSubUrl().get(k).getUrl());
-                }
-            }
-        }
     }
 
 
     public void calculateScore() {
         calculateIndividualScore();
         calculateTotalScore();
-        puanGoster();
     }
 
 
@@ -222,6 +176,7 @@ public class Question4 {
 
 
         System.out.println("Calculate Individual Score");
+        System.out.println("Websites: ");
         for (int i = 0; i < urls.size(); i++) {
             try {
                 Question3 question3 = new Question3();
@@ -230,7 +185,6 @@ public class Question4 {
                 question3.getSimilarUrl().get(0).setSimilarity(0);
                 question3.getSimilarUrl().get(1).setSimilarity(0);
             } catch (Exception e) {
-                System.out.println(e + " Hatasi Meydana geldi");
             }
 
             for (int j = 0; j < urls.get(i).getSubUrl().size(); j++) {
@@ -241,7 +195,6 @@ public class Question4 {
                     question3_2.getSimilarUrl().get(0).setSimilarity(0);
                     question3_2.getSimilarUrl().get(1).setSimilarity(0);
                 } catch (Exception e) {
-                    System.out.println(e + " Hatasi Meydana geldi");
                 }
 
                 for (int k = 0; k < urls.get(i).getSubUrl().get(j).getSubUrl().size(); k++) {
@@ -252,10 +205,8 @@ public class Question4 {
                         urls.get(i).getSubUrl().get(j).getSubUrl().get(k).setTotalScore(urls.get(i).getSubUrl().get(j).getSubUrl().get(k).getIndividualScore());
                         question3_3.getSimilarUrl().get(0).setSimilarity(0);
                         question3_3.getSimilarUrl().get(1).setSimilarity(0);
-                        System.out.println("Site  :" + (i) + "---" + (j) + "---" + (k) + "---");
-                        System.out.println("Puanlar  :" + (urls.get(i).getIndividualScore()) + "---" + (urls.get(i).getSubUrl().get(j).getIndividualScore()) + "---" + (urls.get(i).getSubUrl().get(j).getSubUrl().get(k).getIndividualScore()) + "---");
+                        System.out.println("Website  :" + (i) + "---" + (j) + "---" + (k) + "---");
                     } catch (Exception e) {
-                        System.out.println(e + " Hatasi Meydana geldi");
                     }
 
                 }
@@ -278,7 +229,6 @@ public class Question4 {
                     try {
                         scoreLevel3 += urls.get(i).getSubUrl().get(j).getSubUrl().get(k).getIndividualScore();
                     } catch (Exception e) {
-                        System.out.println(e + " Hatasi Meydana geldi");
                     }
 
                 }
@@ -291,7 +241,6 @@ public class Question4 {
                     urls.get(i).getSubUrl().get(j).setTotalScore(((urls.get(i).getSubUrl().get(j).getIndividualScore() * 70) / 100) + ((scoreLevel3 * 30) / 100));
                     scoreLevel2 += urls.get(i).getSubUrl().get(j).getTotalScore();
                 } catch (Exception e) {
-                    System.out.println(e + " Hatasi Meydana geldi");
                 }
 
             }
@@ -303,21 +252,9 @@ public class Question4 {
                 }
                 urls.get(i).setTotalScore(((urls.get(i).getIndividualScore() * 60) / 100) + ((scoreLevel2 * 40) / 100));
             } catch (Exception e) {
-                System.out.println(e + " Hatasi Meydana geldi");
             }
 
 
-        }
-    }
-
-    public void puanGoster() {
-        for (int i = 0; i < urls.size(); i++) {
-            for (int j = 0; j < urls.get(i).getSubUrl().size(); j++) {
-                for (int k = 0; k < urls.get(i).getSubUrl().get(j).getSubUrl().size(); k++) {
-                    System.out.println("IndiviualScore: " + urls.get(i).getIndividualScore() + "|||||" + urls.get(i).getSubUrl().get(j).getIndividualScore() + "|||||" + urls.get(i).getSubUrl().get(j).getSubUrl().get(k).getIndividualScore());
-                    System.out.println("TotalScore    :  " + urls.get(i).getTotalScore() + "|||||" + urls.get(i).getSubUrl().get(j).getTotalScore());
-                }
-            }
         }
     }
 
@@ -334,20 +271,17 @@ public class Question4 {
             try {
                 compareKeyword(keywords, urls.get(i));
             } catch (Exception e) {
-                System.out.println(e + " Hatasi Meydana geldi");
             }
             for (int j = 0; j < urls.get(i).getSubUrl().size(); j++) {
                 try {
                     compareKeyword(keywords, urls.get(i).getSubUrl().get(j));
                 } catch (Exception e) {
-                    System.out.println(e + " Hatasi Meydana geldi");
                 }
 
                 for (int k = 0; k < urls.get(i).getSubUrl().get(j).getSubUrl().size(); k++) {
                     try {
                         compareKeyword(keywords, urls.get(i).getSubUrl().get(j).getSubUrl().get(k));
                     } catch (Exception e) {
-                        System.out.println(e + " Hatasi Meydana geldi");
                     }
 
                 }

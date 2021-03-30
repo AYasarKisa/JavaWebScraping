@@ -125,7 +125,7 @@ const question5Result = async function(response){
 
 const question1 = async function(){
     let url = document.querySelector('#input-question1').value;
-    let fullUrl = "http://localhost:8080/api1/soru1/frekansbul?url="+url;
+    let fullUrl = "http://localhost:8080/api/soru1/frekansbul?url="+url;
     await $.ajax({
             type: "GET",
             url: fullUrl,
@@ -142,7 +142,7 @@ const question1 = async function(){
 
 const question2 = async function(){
     let url = document.querySelector('#input-question2').value;
-    let fullUrl = "http://localhost:8080/api1/soru2/keywords?url="+url;
+    let fullUrl = "http://localhost:8080/api/soru2/keywords?url="+url;
     await $.ajax({
             type: "GET",
             url: fullUrl,
@@ -160,7 +160,7 @@ const question2 = async function(){
 const question3 = async function(){
     let url1 = document.querySelector('#input-question3-1').value;
     let url2 = document.querySelector('#input-question3-2').value;
-    let fullUrl = "http://localhost:8080/api1/soru3/similarity?url1="+url1+"&url2="+url2;
+    let fullUrl = "http://localhost:8080/api/soru3/similarity?url1="+url1+"&url2="+url2;
     await $.ajax({
             type: "GET",
             url: fullUrl,
@@ -181,7 +181,7 @@ const question4 = async function(){
 
     let url1 = document.querySelector('#input-question4').value;
     let url2 = document.querySelector('#area-question4').value;
-    let fullUrl = "http://localhost:8080/api1/soru4/indexandsort?mainUrl="+url1+"&urlSet="+url2;
+    let fullUrl = "http://localhost:8080/api/soru4/indexandsort?mainUrl="+url1+"&urlSet="+url2;
     let html = ""
     await $.ajax({
             type: "GET",
@@ -201,7 +201,7 @@ const question4 = async function(){
 const question5 = async function(){
     let url1 = document.querySelector('#input-question5').value;
     let url2 = document.querySelector('#area-question5').value;
-    let fullUrl = "http://localhost:8080/api1/soru5/synonyms?mainUrl="+url1+"&urlSet="+url2;
+    let fullUrl = "http://localhost:8080/api/soru5/synonyms?mainUrl="+url1+"&urlSet="+url2;
     await $.ajax({
             type: "GET",
             url: fullUrl,

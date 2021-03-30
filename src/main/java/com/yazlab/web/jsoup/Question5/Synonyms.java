@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Synonyms {
 
-    private HashMap<String,ArrayList<String>> list;
+    private HashMap<String, ArrayList<String>> list;
     private String url;
 
     public Synonyms(HashMap<String, ArrayList<String>> list, String url) {

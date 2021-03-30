@@ -1,7 +1,5 @@
 package com.yazlab.web.jsoup.Question4;
 
-import com.yazlab.web.jsoup.Question2.Keywords;
-
 public class KeywordFrequency {
     private String keyword;
     private int frequency;

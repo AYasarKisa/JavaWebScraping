@@ -7,13 +7,13 @@ import java.util.List;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping("/api1/soru4")
+@RequestMapping("/api/soru4")
 public class Question4Api {
 
 
     @GetMapping("/indexandsort")
     public List<UrlTree> get(@RequestParam String mainUrl, @RequestParam List<String> urlSet){
-        System.out.println("Question4 Api Run\n\n\n");
+        System.out.println("Question4 Api Run...\n\n\n");
         Question4 question4=new Question4();
        return question4.indexing(mainUrl,urlSet);
     }
